@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <meta charset="UTF-8">
+        <title>API FUN: Fetch</title>
+        <style>
+            body{
+                background-color: rgb(216, 189, 153);
+            }
+            h1{
+                text-align: center;
+            }
+            h2{
+                text-align: center;
+            }
+        </style>
+        <script>
+            fetch("https://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline")
+                // convert response object to json  
+                .then((res) => {
+                    if (res.readyState ==4 && res.status == 200) {
+                        console.log("5:  data is ready");
+                        document.getElementById("messages").innerHTML = "Data retrieved! <br>";
+                    } 
+                    else if (res.readyState == 4 && res.status != 200) {
+                        document.getElementById("messages").innerHTML = "Whoops, something went terribly wrong!";
+                    }
+                    else if (res.readyState == 3) {
+                        console.log("6:  ready state 3- request received,data being sent");
+                        document.getElementById("messages").innerHTML = "Too soon!  Try again";
+                    }
+                    return res.json();
+                })
+                .then((res) => {
+                    for (i =0; i<res.length; i++) {
+
+                                document.getElementById("messages").innerHTML += "Product Name: " + res[i].name + " || Price: " + 
+                                res[i].price + "<br>";
+
+                                console.log(res[i].name)
+                            
+                            
+                        }
+                    // document.getElementById("messages").innerHTML = res[0].name;
+                })
+                    // console.log(data))
+                
+        </script>
+    </head>
+    <body>
+
+        <h1>JSON Data: Using Fetch</h1>
+	    <div id="messages">Loading... <br></div>
+        <h2>API Results</h2>
+        <p>The API consists of different Maybelline products and the product information. The data is in JSON format. It indeed is free to use. </p>
+        <p>Website: https://mixedanalytics.com/blog/list-actually-free-open-no-auth-needed-apis/</p>
+        <p> There are two options used for the API request. One is using the AJAX data pattern and the other is usng fetch to complete the same API call. I have added them to different websites. 
+            Each has the title either API Fun AJAX or API Fun Fetch. 
+        </p>
+        <p>Applications where this API would be helpful: <br>
+            (1) If you are a beauty blogger it might be helpful, and if your selling those cosmetics it might be helpful to have access to this API <br>
+            (2) Also if are a makeup product owner and the prices of the products change, you can change it from the API. The API
+            makes it easy for owners to manage their products.
+        </p>
+    </body>
+
+</html>
